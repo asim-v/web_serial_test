@@ -63,7 +63,7 @@
     	sixth_value = document.getElementById('second_slider').value.toString()
 
     	// to_send = first_value + ',50,0,0,'+second_value+',20'+'\n'
-    	to_send = '#/'+first_value+'/'+second_value+'/'+third_value+'/'+fourth_value+'/'+fifth_value+'/'+sixth_value+'/?'
+    	to_send = '#//'+first_value+'/'+second_value+'/'+third_value+'/'+fourth_value+'/'+fifth_value+'/'+sixth_value+'//?'
     	console.log("Writing to serial: ", to_send)
     	serial.writeLine(to_send)
 
