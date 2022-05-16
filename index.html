@@ -13,8 +13,9 @@
 	<p></p>
 	<button id="connect-button" onclick="onConnectButtonClick()">Connect via Serial Port</button>
 
-	<input id="first_slider" type="range" min="0" max="180" value="60" onchange="onSliderValueChanged()" />
-	<input id="second_slider" type="range" min="0" max="180" value="50" onchange="onSliderValueChanged()" />
+	<input id="first_slider" type="range" min="0" max="180" value="60"  />
+	<input id="second_slider" type="range" min="0" max="180" value="50"  />
+	<button onclick="sendData()">Send data</button>
 <!--   <input id="slider" type="range" min="0" max="180" value="50" onchange="" />
   <input id="slider" type="range" min="0" max="180" value="0" onchange="" />	
   <input id="slider" type="range" min="0" max="180" value="0" onchange="" />
@@ -47,7 +48,7 @@
     	console.log("onSerialDataReceived", newData);
     }
 
-    async function onSliderValueChanged(src, event) {
+    async function sendData() {
 
     	first_value = document.getElementById('first_slider').value.toString()
     	second_value = document.getElementById('second_slider').value.toString()
