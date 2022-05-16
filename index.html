@@ -12,9 +12,14 @@
 
 	<p></p>
 	<button id="connect-button" onclick="onConnectButtonClick()">Connect via Serial Port</button>
-
-	<input id="first_slider" type="range" min="0" max="180" value="60"  />
-	<input id="second_slider" type="range" min="0" max="180" value="50"  />
+	<br>
+	<input id="first_slider" type="range" min="0" max="255" value="0"  />
+	<input id="second_slider" type="range" min="0" max="255" value="0"  />
+	<input id="third_slider" type="range" min="0" max="255" value="0"  />
+	<input id="fourth_slider" type="range" min="0" max="255" value="0"  />
+	<input id="fifth_slider" type="range" min="0" max="255" value="0"  />
+	<input id="sixth_slider" type="range" min="0" max="255" value="0"  />
+	<br/>
 	<button onclick="sendData()">Send data</button>
 <!--   <input id="slider" type="range" min="0" max="180" value="50" onchange="" />
   <input id="slider" type="range" min="0" max="180" value="0" onchange="" />	
@@ -26,51 +31,57 @@
 
 
     // Setup Web Serial using serial.js
-    const serial = new Serial();
-    serial.on(SerialEvents.CONNECTION_OPENED, onSerialConnectionOpened);
-    serial.on(SerialEvents.CONNECTION_CLOSED, onSerialConnectionClosed);
-    serial.on(SerialEvents.DATA_RECEIVED, onSerialDataReceived);
-    serial.on(SerialEvents.ERROR_OCCURRED, onSerialErrorOccurred);
+    const serial = new Serial()
+    serial.on(SerialEvents.CONNECTION_OPENED, onSerialConnectionOpened)
+    serial.on(SerialEvents.CONNECTION_CLOSED, onSerialConnectionClosed)
+    serial.on(SerialEvents.DATA_RECEIVED, onSerialDataReceived)
+    serial.on(SerialEvents.ERROR_OCCURRED, onSerialErrorOccurred)
 
     function onSerialErrorOccurred(eventSender, error) {
-    	console.log("onSerialErrorOccurred", error);
+    	console.log("onSerialErrorOccurred", error)
     }
 
     function onSerialConnectionOpened(eventSender) {
-    	console.log("onSerialConnectionOpened", eventSender);
+    	console.log("onSerialConnectionOpened", eventSender)
     }
 
     function onSerialConnectionClosed(eventSender) {
-    	console.log("onSerialConnectionClosed", eventSender);
+    	console.log("onSerialConnectionClosed", eventSender)
     }
 
     function onSerialDataReceived(eventSender, newData) {
-    	console.log("onSerialDataReceived", newData);
+    	console.log("onSerialDataReceived", newData)
     }
 
     async function sendData() {
 
     	first_value = document.getElementById('first_slider').value.toString()
     	second_value = document.getElementById('second_slider').value.toString()
-    	to_send = first_value + ',50,0,0,'+second_value+',20'+'\n'
+    	third_value = document.getElementById('third_slider').value.toString()
+    	fourth_value = document.getElementById('second_slider').value.toString()
+    	fifth_value = document.getElementById('second_slider').value.toString()
+    	sixth_value = document.getElementById('second_slider').value.toString()
 
-    	console.log("Writing to serial: ", to_send);
-    	response = serial.writeLine(to_send);
+    	// to_send = first_value + ',50,0,0,'+second_value+',20'+'\n'
+    	to_send = '#/'+first_value+'/'+second_value+'/'+third_value+'/'+fourth_value+'/'+fifth_value+'/'+sixth_value+'/?'
+    	console.log("Writing to serial: ", to_send)
+    	serial.writeLine(to_send)
+
 
     }
 
     async function onConnectButtonClick() {
-    	console.log("Connect button clicked!");
+    	console.log("Connect button clicked!")
 
     	if (navigator.serial) {
     		if (!serial.isOpen()) {
-    			await serial.connectAndOpen();
+    			await serial.connectAndOpen()
     		} else {
-    			console.log("The serial connection appears already open");
+    			console.log("The serial connection appears already open")
     		}
 
     	} else {
-    		alert('The Web Serial API does not appear supported on this web browser. Are you using Chrome? Did you remember to enable `experimental-web-platform-features` in Chrome? See https://web.dev/serial/');
+    		alert('The Web Serial API does not appear supported on this web browser. Are you using Chrome? Did you remember to enable `experimental-web-platform-features` in Chrome? See https://web.dev/serial/')
     	}
     }
 </script>
